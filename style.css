@@ -1,0 +1,149 @@
+*{
+    box-sizing: border-box;
+    font-family: "Cutive";
+    color: white;
+    font-size: 4vmin;
+
+}
+body{
+    box-sizing: border-box;
+    margin: 0;
+    height: 100vh;
+}
+.PageContainer{
+    #border: 1px solid black;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(270deg, #7eeca4, #f0ff81);
+}
+.CalculatorBack{
+    #border: 1px outset gray;
+    z-index: 2;
+    border-radius: 7%;
+    height: 70%;
+    width: 24%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(270deg, grey, #777777);
+    /*box-shadow: .4em .2em .5em .01em black;*/
+}
+
+
+
+
+
+
+
+
+
+.CalculatorBody{
+    #border: 1px solid blue;
+    border-radius: 7%;
+    background-color: #00c0c0;
+    box-shadow: .1em .15em .8em black;
+    width: 97%;
+    height: 97%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+.ScreenContainer{
+    #border: 1px solid pink;
+    background-color: #00c7c7;
+    border-radius: 7%;
+    height: 24%;
+    width: 94%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.Screen{
+    #border: 1px solid black;
+    border-radius: 7%;
+    background-color: #00e0e0;
+    box-shadow: .1em .1em .3em #00b7b7;
+    width: 99%;
+    height: 93%;
+    display: flex;
+    align-items: flex-end;
+}
+.Output{
+    #border: 1px solid maroon;
+    height: 60%;
+    width: 100%;
+    text-align: right;
+    padding-right: 3%;
+    text-shadow: .1em .05em .1em #006666;
+}
+.ClearButtonsContainer{
+    #border: 1px solid red;
+    border-radius: 7%;
+    background-color: #00c0c0;
+    width: 97%;
+    height: 14%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.Clear{
+    #border: 1px solid green;
+    background-color: #4eb1c8;
+    border-radius: 4%;
+    width: 48%;
+    height: 97%;
+    box-shadow: .1em .1em .3em #006f6f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    cursor: pointer;
+}
+.ClearEntry{
+    #border: 1px solid maroon;
+    background-color: #3d768b;
+    border-radius: 4%;
+    width: 48%;
+    height: 97%;
+    box-shadow: .1em .1em .3em #006f6f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    cursor: pointer;
+}
+.MainButtonsContainer{
+    #border: 3px solid orange;
+    border-radius: 3%;
+    background-color: #00c0c0;
+    height: 59.6%;
+    width: 96%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+    align-content: space-around;
+
+}
+.MainButtonsContainer div{
+    #border: 1px solid blue;
+    background-color: #4eb1c8;
+    border-radius: 10%;
+    box-shadow: .1em .1em .3em #006f6f;
+    height: 24%;
+    width: 23%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    cursor: pointer;
+}
+.MainButtonsContainer div article{
+
+}
