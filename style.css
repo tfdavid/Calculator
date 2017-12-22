@@ -19,6 +19,12 @@ body{
     align-items: center;
     background: linear-gradient(270deg, #7eeca4, #f0ff81);
 }
+.ChainedOutput{
+    height: 20%;
+    width: 50%;
+    border: 1px solid black;
+    color: black;
+}
 .CalculatorBack{
     #border: 1px outset gray;
     z-index: 2;
