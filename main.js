@@ -11,6 +11,7 @@ function initializeApp(){
 }
 
 var inputArray = [];
+var lastTwoItemsArray=[];
 var currentValue;
 
 
@@ -75,6 +76,12 @@ function equalPressed(){
     if(inputArray[inputArray.length-1].type === "operator"){
 
     }
+    if(inputArray.length === 1 && inputArray[inputArray.length-1].type === "num"){
+        doMathOperationRepeat();
+        displayOngoingOutput();
+        return;
+    }
+
     doMath();
     displayOngoingOutput();
 
@@ -160,6 +167,7 @@ function doMath(){
     var first;
     var second;
     var result;
+    lastTwoItemsArray = inputArray.slice(inputArray.length-2); //Setting up to chain multiple =
     for(var i=0; i<inputArray.length; i++){
         if(inputArray[i].type === "operator") {
             first = parseFloat(inputArray[i - 1].value);
@@ -344,6 +352,54 @@ function doBabyMath2(){
     $('.Output').text(currentValue);
     // inputArray =[]; //added this to clear screen output
 
+}
+function doMathOperationRepeat(){
+    var lastThreeItemsArray = lastTwoItemsArray.slice();
+    lastThreeItemsArray.unshift(inputArray[0]);
+    var first;
+    var second;
+    var result;
+    for(var i=0; i<lastThreeItemsArray.length; i++){
+        if(lastThreeItemsArray[i].type === "operator") {
+            first = parseFloat(lastThreeItemsArray[i - 1].value);
+            second = parseFloat(lastThreeItemsArray[i + 1].value);
+            if (lastThreeItemsArray[i].value === "\xF7") {
+                result = first / second;
+                lastThreeItemsArray.splice(i - 1, 3, (new CalculatorEntry("num", result)));
+                i -= 2;
+                continue;
+            }
+            if (lastThreeItemsArray[i].value === "x") {
+                result = first * second;
+                lastThreeItemsArray.splice(i - 1, 3, (new CalculatorEntry("num", result)));
+                i -= 2;
+                continue;
+            }
+        }
+    }
+    for(var i=0; i<lastThreeItemsArray.length; i++){
+        if(lastThreeItemsArray[i].type === "operator"){
+            first =parseFloat(lastThreeItemsArray[i-1].value);
+            second = parseFloat(lastThreeItemsArray[i+1].value);
+            if(lastThreeItemsArray[i].value === "+"){
+                result = first + second;
+                lastThreeItemsArray.splice(i-1,3,(new CalculatorEntry("num", result)));
+                i-=2;
+                continue;
+            }
+            if(lastThreeItemsArray[i].value === "-"){
+                result = first - second;
+                lastThreeItemsArray.splice(i-1,3,(new CalculatorEntry("num", result)));
+                i-=2;
+                continue;
+            }
+        }
+    }
 
+    currentValue=lastThreeItemsArray[0].value;
+    $('.Output').text(currentValue);
+    var temp = lastThreeItemsArray.slice();
+
+    inputArray = temp;
 }
 
