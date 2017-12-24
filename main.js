@@ -32,6 +32,12 @@ function displayOngoingOutput(){
 function numberPressed() {
     if (inputArray.length) {
     if (inputArray[inputArray.length - 1].type === "num") {
+        if(inputArray[inputArray.length - 1].value === "0"){
+            inputArray.pop();
+            inputArray.push(new CalculatorEntry("num", $(event.currentTarget).find("article").text()));
+            displayOngoingOutput();
+            return;
+        }
         inputArray[inputArray.length - 1].value += $(event.currentTarget).find("article").text();
         currentValue=inputArray[inputArray.length - 1].value;
         $('.Output').text(currentValue);
@@ -48,6 +54,7 @@ function numberPressed() {
 }
 function addPressed(){
     if(!inputArray.length){
+        inputArray.push(new CalculatorEntry("num", "0"));
         inputArray.push(new CalculatorEntry("operator", $(event.currentTarget).find("article").text()));
         displayOngoingOutput();
 
@@ -75,6 +82,9 @@ function equalPressed(){
     }
     if(inputArray[inputArray.length-1].type === "operator"){
 
+        doPartialOperandMath();
+        displayOngoingOutput();
+        return;
     }
     if(inputArray.length === 1 && inputArray[inputArray.length-1].type === "num"){
         doMathOperationRepeat();
@@ -88,6 +98,7 @@ function equalPressed(){
 }
 function subtractPressed(){
     if(!inputArray.length){
+        inputArray.push(new CalculatorEntry("num", "0"));
         inputArray.push(new CalculatorEntry("operator", $(event.currentTarget).find("article").text()));
         displayOngoingOutput();
     }
@@ -107,6 +118,7 @@ function subtractPressed(){
 }
 function dividePressed(){
     if(!inputArray.length){
+        inputArray.push(new CalculatorEntry("num", "0"));
         inputArray.push(new CalculatorEntry("operator", $(event.currentTarget).find("article").text()));
         displayOngoingOutput();
     }
@@ -131,6 +143,7 @@ function dividePressed(){
 
 function multiplyPressed(){
     if(!inputArray.length){
+        inputArray.push(new CalculatorEntry("num", "0"));
         inputArray.push(new CalculatorEntry("operator", $(event.currentTarget).find("article").text()));
         displayOngoingOutput();
     }
@@ -306,6 +319,8 @@ function doBabyMath2(){
     //might encounter a problem here later but if locator is not found babyArray will be a full copy of inputArray since i+1===0
     var babyArray = inputArray.slice(i+1,inputArray.length-1);
     if(babyArray.length < 3){
+        $('.Output').text(babyArray[0].value);  //TO FIX CASE INPUT: 'x' '=';
+        currentValue = babyArray[0].value;
         return;
     }
     var first;
@@ -403,3 +418,62 @@ function doMathOperationRepeat(){
     inputArray = temp;
 }
 
+function doPartialOperandMath(){
+    var first;
+    var second;
+    var result;
+    var currentValToObj = new CalculatorEntry("num", currentValue);
+    inputArray.push(currentValToObj);
+    lastTwoItemsArray = inputArray.slice(inputArray.length-2); //Setting up to chain multiple =
+    for(var i=0; i<inputArray.length; i++){
+        if(inputArray[i].type === "operator") {
+            first = parseFloat(inputArray[i - 1].value);
+            second = parseFloat(inputArray[i + 1].value);
+            if (inputArray[i].value === "\xF7") {
+                result = first / second;
+                result = result.toString(); //i convert this back to string here because later i will check for value with indexOf which will log an error if value becomes a number
+                inputArray.splice(i - 1, 3, (new CalculatorEntry("num", result)));
+                i -= 2;
+                continue;
+            }
+            if (inputArray[i].value === "x") {
+                result = first * second;
+                result = result.toString();
+                inputArray.splice(i - 1, 3, (new CalculatorEntry("num", result)));
+                i -= 2;
+                continue;
+            }
+        }
+    }
+    for(var i=0; i<inputArray.length; i++){
+        if(inputArray[i].type === "operator"){
+            first =parseFloat(inputArray[i-1].value);
+            second = parseFloat(inputArray[i+1].value);
+            if(inputArray[i].value === "+"){
+                result = first + second;
+                result = result.toString();
+                inputArray.splice(i-1,3,(new CalculatorEntry("num", result)));
+                i-=2;
+                continue;
+            }
+            if(inputArray[i].value === "-"){
+                result = first - second;
+                result = result.toString();
+                inputArray.splice(i-1,3,(new CalculatorEntry("num", result)));
+                i-=2;
+                continue;
+            }
+        }
+    }
+
+
+    // var stringNum = inputArray[0].value.toString();         //convert back to string to fix DoMath2, but then we get a problem with .push
+    var temp = inputArray.slice();
+
+    // var temp = (new CalculatorEntry("num", stringNum));
+
+    currentValue=inputArray[0].value;
+    $('.Output').text(currentValue);
+    inputArray = temp;
+
+}
