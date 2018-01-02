@@ -7,6 +7,8 @@ function initializeApp(){
     $('.MainButtonsContainer .divide').on("click", dividePressed);
     $('.MainButtonsContainer .multiply').on("click", multiplyPressed);
     $('.MainButtonsContainer .decimal').on("click", decimalPressed);
+    $('.ClearButtonsContainer .Clear').on("click", clearPressed);
+    $('.ClearButtonsContainer .ClearEntry').on("click", clearEntryPressed);
 
 }
 
@@ -23,15 +25,29 @@ function CalculatorEntry(type, value){
 function displayOngoingOutput(){
     var display = '';
     for(var i =0; i<inputArray.length;i++){
-        display += inputArray[i].value;
+        display += inputArray[i].value + " ";
     }
     $('.ChainedOutput').text(display);
+
+}
+function clearPressed(){
+    inputArray=[];
+    displayOngoingOutput();
+    $('.Output').text("0");
+}
+function clearEntryPressed(){
+    inputArray.pop();
+    displayOngoingOutput();
+    $('.Output').text("0");
 
 }
 
 function numberPressed() {
     if (inputArray.length) {
     if (inputArray[inputArray.length - 1].type === "num") {
+        if(inputArray[inputArray.length - 1].value.length >8){
+            return;
+        }
         if(inputArray[inputArray.length - 1].value === "0"){
             inputArray.pop();
             inputArray.push(new CalculatorEntry("num", $(event.currentTarget).find("article").text()));
@@ -158,6 +174,9 @@ function multiplyPressed(){
     doBabyMath2();
 }
 function decimalPressed(){
+    if(inputArray[inputArray.length - 1].value.length >8){  //this needs a more comprehensive fix (aesthetics)
+        return;
+    }
     if(!inputArray.length || inputArray[inputArray.length-1].type === "operator"){
         inputArray.push(new CalculatorEntry("num", "0."));
         displayOngoingOutput();
@@ -369,6 +388,8 @@ function doBabyMath2(){
 
 }
 function doMathOperationRepeat(){
+    //ADDED   result = result.toString(); to fix future indexof errors
+
     var lastThreeItemsArray = lastTwoItemsArray.slice();
     lastThreeItemsArray.unshift(inputArray[0]);
     var first;
@@ -380,12 +401,14 @@ function doMathOperationRepeat(){
             second = parseFloat(lastThreeItemsArray[i + 1].value);
             if (lastThreeItemsArray[i].value === "\xF7") {
                 result = first / second;
+                result = result.toString();
                 lastThreeItemsArray.splice(i - 1, 3, (new CalculatorEntry("num", result)));
                 i -= 2;
                 continue;
             }
             if (lastThreeItemsArray[i].value === "x") {
                 result = first * second;
+                result = result.toString();
                 lastThreeItemsArray.splice(i - 1, 3, (new CalculatorEntry("num", result)));
                 i -= 2;
                 continue;
@@ -398,12 +421,14 @@ function doMathOperationRepeat(){
             second = parseFloat(lastThreeItemsArray[i+1].value);
             if(lastThreeItemsArray[i].value === "+"){
                 result = first + second;
+                result = result.toString();
                 lastThreeItemsArray.splice(i-1,3,(new CalculatorEntry("num", result)));
                 i-=2;
                 continue;
             }
             if(lastThreeItemsArray[i].value === "-"){
                 result = first - second;
+                result = result.toString();
                 lastThreeItemsArray.splice(i-1,3,(new CalculatorEntry("num", result)));
                 i-=2;
                 continue;
