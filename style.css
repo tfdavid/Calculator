@@ -17,7 +17,25 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     background: linear-gradient(270deg, #7eeca4, #f0ff81);
+}
+/*.PageContainer{*/
+    /*#border: 1px solid black;*/
+    /*height: 100%;*/
+    /*width: 100%;*/
+    /*display: flex;*/
+    /*justify-content: space-around;*/
+    /*align-items: flex-start;*/
+    /*flex-direction: row-reverse;*/
+    /*background: linear-gradient(270deg, #7eeca4, #f0ff81);*/
+/*}*/
+.ChainedOutput{
+    height: 10%;
+    width: 50%;
+    #border: 1px solid black;
+    color: #1f3e2a;
+    word-wrap: break-word;
 }
 .CalculatorBack{
     #border: 1px outset gray;
@@ -29,7 +47,7 @@ body{
     justify-content: center;
     align-items: center;
     background: linear-gradient(270deg, grey, #777777);
-    /*box-shadow: .4em .2em .5em .01em black;*/
+    /*box-shadow: .4em .3em .6em .1em black;*/
 }
 
 .CalculatorBody{
@@ -55,6 +73,7 @@ body{
     justify-content: center;
     align-items: center;
 
+
 }
 .Screen{
     #border: 1px solid black;
@@ -65,6 +84,7 @@ body{
     height: 93%;
     display: flex;
     align-items: flex-end;
+
 }
 .Output{
     #border: 1px solid maroon;
@@ -73,6 +93,7 @@ body{
     text-align: right;
     padding-right: 3%;
     text-shadow: .1em .05em .1em #006666;
+    word-wrap: break-word;
 }
 .ClearButtonsContainer{
     #border: 1px solid red;
@@ -83,6 +104,20 @@ body{
     display: flex;
     align-items: center;
     justify-content: space-around;
+}
+.ClearButtonsContainer div{
+    transition: .2s;
+}
+.ClearButtonsContainer div:hover{
+    background-color: rgba(0, 0, 0, 0.1);
+    transform: scale(1.05);
+    transition: .2s;
+}
+.ClearButtonsContainer div:active{
+    transform: scale(1.03);
+    transition: .001s;
+    background-color: rgba(0, 0, 0, 0.4);
+
 }
 .Clear{
     #border: 1px solid green;
@@ -110,6 +145,21 @@ body{
     user-select: none;
     cursor: pointer;
 }
+.MainButtonsContainer div{
+    transition: .2s;
+}
+.MainButtonsContainer div:hover{
+    background-color: rgba(145, 215, 255, 0.33);
+    transform: scale(1.05);
+    transition: .2s;
+}
+.MainButtonsContainer div:active{
+    transform: scale(1.03);
+    transition: .001s;
+    color: orange;
+    background-color: rgba(95, 151, 186, 0.55);
+
+}
 .MainButtonsContainer{
     #border: 3px solid orange;
     border-radius: 3%;
@@ -135,7 +185,4 @@ body{
     align-items: center;
     user-select: none;
     cursor: pointer;
-}
-.MainButtonsContainer div article{
-
 }
