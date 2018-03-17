@@ -175,13 +175,14 @@ function multiplyPressed(){
     doBabyMath2();
 }
 function decimalPressed(){
-    if(inputArray[inputArray.length - 1].value.length >8){  //this needs a more comprehensive fix (aesthetics)
-        return;
-    }
+    
     if(!inputArray.length || inputArray[inputArray.length-1].type === "operator"){
         inputArray.push(new CalculatorEntry("num", "0."));
         displayOngoingOutput();
         $('.Output').text(inputArray[inputArray.length-1].value);
+    }
+    if (inputArray[inputArray.length - 1].value.length > 8) {  //this needs a more comprehensive fix (aesthetics)
+        return;
     }
     else {
         if (inputArray[inputArray.length - 1].value.indexOf(".") == -1) {
