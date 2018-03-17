@@ -17,6 +17,7 @@ var lastTwoItemsArray=[];
 var currentValue;
 
 
+
 function CalculatorEntry(type, value){
     this.type = type;
     this.value = value;
